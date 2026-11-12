@@ -1,6 +1,6 @@
 {
   "name": "blitz-trening",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Statystyki z powtórek treningowych World of Tanks Blitz z zapisem do Excela",
   "main": "main.js",
   "scripts": {
@@ -14,7 +14,7 @@
   "build": {
     "appId": "pl.blitztrening.app",
     "productName": "Blitz Trening",
-    "files": ["main.js", "app/**/*"],
+    "files": ["main.js", "preload.js", "app/**/*"],
     "win": { "target": "portable" }
   }
 }
