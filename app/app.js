@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = 'v1.0';
+const APP_VERSION = 'v1.1';
 
 // ---------- Ustawienia domyślne ----------
 const DEFAULT_ROSTER = [
@@ -261,11 +261,24 @@ async function exportExcel() {
   ws.views = [{ state: 'frozen', ySplit: 1 }];
 
   const buf = await wb.xlsx.writeBuffer();
+  const d = new Date();
+  const name = `Trening_${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}.xlsx`;
+
+  // W aplikacji .exe: okno zapisu Windows z typem „Arkusz Excela”
+  if (window.bridge?.saveXlsx) {
+    const file = await window.bridge.saveXlsx(name, new Uint8Array(buf));
+    if (file) {
+      toast(`Zapisano plik Excela:\n${file}`);
+      window.bridge.showFile(file);
+    }
+    return;
+  }
+
+  // W przeglądarce: zwykłe pobieranie
   const blob = new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
   const a = document.createElement('a');
-  const d = new Date();
   a.href = URL.createObjectURL(blob);
-  a.download = `Trening_${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}.xlsx`;
+  a.download = name;
   document.body.appendChild(a);
   a.click();
   a.remove();
