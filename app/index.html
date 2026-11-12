@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blitz Trening</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <h1>Blitz Trening</h1>
+      <span id="summary" class="summary"></span>
+    </div>
+    <div class="top-actions">
+      <label class="btn">
+        Dodaj powtórki
+        <input id="filePick" type="file" accept=".wotbreplay,.xlsx" multiple hidden>
+      </label>
+      <button class="btn primary" id="btnExport">Zapisz do Excela</button>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button data-tab="table" role="tab">Tabela</button>
+    <button data-tab="battles" role="tab">Bitwy</button>
+    <button data-tab="others" role="tab">Inni gracze</button>
+    <button data-tab="roster" role="tab">Lista graczy</button>
+  </nav>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <main id="view"></main>
+
+  <div id="drop" class="drop"><div>Upuść powtórki (.wotbreplay) albo plik Excela</div></div>
+
+  <footer class="foot">
+    <span>Przeciągnij powtórki w dowolne miejsce okna. Ta sama bitwa nie policzy się dwa razy.</span>
+    <span class="version" id="version"></span>
+  </footer>
+
+  <script src="lib/fflate.min.js"></script>
+  <script src="lib/exceljs.min.js"></script>
+  <script src="parser.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
